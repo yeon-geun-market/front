@@ -1,0 +1,26 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.listContainer {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.filter {
+  flex: 0 0 auto;
+  border: solid 1px black;
+  height: 100%;
+  width: 8rem;
+}
+
+.list {
+  flex: 1;
+}
