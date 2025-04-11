@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from './Search.module.scss';
 
 const Search = () => {
   return (
     <div>
-      <input />
+      <input className={styles.input} />
     </div>
   );
 };

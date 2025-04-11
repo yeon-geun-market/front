@@ -4,7 +4,7 @@ import { ListItemData } from './dummyData';
 function ListItem(itemData: ListItemData) {
   return (
     <div className={styles.listItemWrapper}>
-      <div>list Image Wrapper</div>
+      <img src={itemData.imageUrl || ''} />
       <p>{itemData.title}</p>
       <p>{itemData.price}</p>
     </div>

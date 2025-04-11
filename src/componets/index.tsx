@@ -1,3 +1,4 @@
 import List from './List/List';
 import Search from './Search/Search';
-export { List, Search };
+import Filter from './Filter/Filter';
+export { List, Search, Filter };

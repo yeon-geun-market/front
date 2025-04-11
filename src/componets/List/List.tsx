@@ -4,7 +4,7 @@ import { dummyItems } from './dummyData';
 import { ListItemData } from './dummyData';
 import styles from './List.module.scss';
 //TODO: 여기서 정렬 및 반응형 넣기
-const List = () => {
+function List() {
   return (
     <div className={styles.listContainer}>
       {dummyItems.map((item: ListItemData) => (
@@ -12,6 +12,6 @@ const List = () => {
       ))}
     </div>
   );
-};
+}
 
 export default List;
