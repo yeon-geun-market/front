@@ -1,4 +1,3 @@
-import React from 'react';
 import ListItem from './ListItem';
 import { dummyItems } from './dummyData';
 import { ListItemData } from './dummyData';
