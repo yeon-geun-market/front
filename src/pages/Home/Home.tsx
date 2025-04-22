@@ -1,6 +1,5 @@
-import React from 'react';
-
 import styles from './Home.module.scss';
+
 import { Filter, Search, List } from '../../componets';
 
 const Home = () => {
