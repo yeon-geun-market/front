@@ -1,12 +1,15 @@
 import ListItem from './ListItem';
-import { dummyItems } from './dummyData';
+
 import { ListItemData } from './dummyData';
 import styles from './List.module.scss';
+import useGetItemList from '../../hooks/useGetItemList';
+
 //TODO: 여기서 정렬 및 반응형 넣기
 function List() {
+  const { data: ItemList } = useGetItemList();
   return (
     <div className={styles.listContainer}>
-      {dummyItems.map((item: ListItemData) => (
+      {ItemList?.map((item: ListItemData) => (
         <ListItem key={item.id} {...item} />
       ))}
     </div>
