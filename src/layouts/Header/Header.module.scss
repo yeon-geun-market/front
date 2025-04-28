@@ -6,6 +6,11 @@
   justify-content: space-between;
   padding: 1rem;
 }
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .title {
   font-size: 2rem;
   color: #e5d9c5;
@@ -17,4 +22,8 @@
   width: 2rem;
   height: 2rem;
   overflow: hidden;
+}
+.logo {
+  box-sizing: content-box;
+  width: 45px;
 }
