@@ -1,6 +1,6 @@
 import styles from './Home.module.scss';
 
-import { Filter, Search, List } from '../../componets';
+import { Filter, Search, List } from '../../components';
 
 const Home = () => {
   return (
