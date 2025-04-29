@@ -6,7 +6,7 @@ const Header = () => {
     <div className={styles.wrapper}>
       <Link to={'/'}>
         <section className={styles.logoWrapper}>
-          <img className={styles.logo} src={'/logo.png'} />
+          {/* <img className={styles.logo} src={'/logo.png'} /> */}
           <a className={styles.title}>연근 마켓</a>
         </section>
       </Link>
