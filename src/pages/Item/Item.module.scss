@@ -3,6 +3,7 @@
 .container {
   height: 100vh;
   min-width: 400px;
+  overflow-y: auto;
 }
 .contentContainer {
   display: flex;

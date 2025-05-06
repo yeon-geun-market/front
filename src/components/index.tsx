@@ -1,4 +1,5 @@
 import List from './List/List';
 import Search from './Search/Search';
 import Filter from './Filter/Filter';
-export { List, Search, Filter };
+import WriteModal from './WriteModal/WriteModal';
+export { List, Search, Filter, WriteModal };

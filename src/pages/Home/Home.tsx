@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import styles from './Home.module.scss';
 
-import { Filter, Search, List } from '../../components';
+import { Filter, Search, List, WriteModal } from '../../components';
 
 const Home = () => {
   const [showFilter, setShowFilter] = useState(false);
-
+  const [isOpen, setIsOpen] = useState(false);
   const toggleFilter = () => {
     setShowFilter(!showFilter);
   };
 
   return (
     <div className={styles.container}>
+      {isOpen && <WriteModal />}
       <Search />
       <div className={styles.listContainer}>
         <button className={styles.filterButton} onClick={toggleFilter}>
@@ -34,6 +35,12 @@ const Home = () => {
           <Filter />
         </div>
       )}
+      <button
+        className={styles.writeButton}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        글쓰기
+      </button>
     </div>
   );
 };
