@@ -1,6 +1,4 @@
 .listItemWrapper {
-  border: solid 1px black;
-  padding: 1rem;
   border-radius: 8px;
   background-color: white;
   transition: transform 0.2s ease;
@@ -13,6 +11,10 @@
 
 .listItemWrapper img {
   width: 100%;
-  height: auto;
-  border-radius: 4px;
+  height: 257px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.listIemInfo {
+  padding: 8px;
 }
