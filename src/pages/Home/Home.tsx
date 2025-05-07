@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      {isOpen && <WriteModal />}
+      {isOpen && <WriteModal setIsOpen={setIsOpen} />}
       <Search />
       <div className={styles.listContainer}>
         <button className={styles.filterButton} onClick={toggleFilter}>

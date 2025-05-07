@@ -24,8 +24,7 @@ export const dummyItems: ListItemData[] = [
     id: 3,
     title: '수제 고추장 500g',
     price: 8000,
-    imageUrl:
-      'https://bnetcmsus-a.akamaihd.net/cms/content_entry_media/kk/KK8P5R4IZCML1521047258022.png',
+    imageUrl: 'https://cdn.mhnse.com/news/photo/202409/320798_361970_3115.jpg',
   },
   {
     id: 4,
