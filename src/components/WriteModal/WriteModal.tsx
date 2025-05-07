@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './WriteModal.module.scss';
 import usePostItem from '../../hooks/usePostItem';
-function WriteModal() {
+function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
   const [images, setImages] = useState<string[]>([]);
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
@@ -24,15 +24,27 @@ function WriteModal() {
   });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (title === '' || content === '' || price === 0 || images.length === 0) {
+      alert('모든 필드를 입력해주세요.');
+      return;
+    }
     mutate();
     setTitle('');
     setContent('');
     setPrice(0);
     setImages([]);
+    setIsOpen(false);
   };
   return (
-    <div className={styles.writeModalContainer}>
-      <form className={styles.formContainer} onSubmit={handleSubmit}>
+    <div
+      className={styles.writeModalContainer}
+      onClick={() => setIsOpen(false)}
+    >
+      <form
+        className={styles.formContainer}
+        onSubmit={handleSubmit}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className={styles.formHeader}>
           <label htmlFor='title'>제목</label>
           <input
