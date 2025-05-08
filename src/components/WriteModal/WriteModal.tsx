@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import styles from './WriteModal.module.scss';
 import usePostItem from '../../hooks/usePostItem';
+
 function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
   const [images, setImages] = useState<string[]>([]);
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [price, setPrice] = useState<number>(0);
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -16,15 +18,17 @@ function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
       reader.readAsDataURL(file);
     }
   };
+
   const { mutate } = usePostItem({
     title,
     content,
     price,
     imageUrl: images[0],
   });
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (title === '' || content === '' || price === 0 || images.length === 0) {
+    if (title === '' || content === '') {
       alert('모든 필드를 입력해주세요.');
       return;
     }
@@ -35,6 +39,7 @@ function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
     setImages([]);
     setIsOpen(false);
   };
+
   return (
     <div
       className={styles.writeModalContainer}
@@ -45,79 +50,94 @@ function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
         onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className={styles.formHeader}>
-          <label htmlFor='title'>제목</label>
+        <div className={styles.inputGroup}>
           <input
-            placeholder='제목'
+            type='text'
+            id='title'
+            className={styles.inputField}
+            placeholder=' '
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
+          <label htmlFor='title' className={styles.floatingLabel}>
+            제목
+          </label>
         </div>
+
         <div className={styles.formContent}>
-          <label htmlFor='cotent'>추가 설명</label>
+          <label htmlFor='content'>추가 설명</label>
           <textarea
-            placeholder='추가 설명'
+            placeholder=''
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            className={styles.inputField}
           />
         </div>
+
         <div className={styles.formFooter}>
           <div className={styles.priceContainer}>
             <input
               type='number'
+              min={0}
               placeholder='가격'
-              value={price}
+              value={price === 0 ? '' : price}
               onChange={(e) => setPrice(Number(e.target.value))}
             />
             <span>원</span>
           </div>
-          <div className={styles.imageContainer}>
-            <div className={styles.imageUploadArea}>
-              {images.length === 0 ? (
-                <div className={styles.noImage}>
-                  <input
-                    type='file'
-                    accept='image/*'
-                    onChange={handleImageChange}
-                    className={styles.fileInput}
-                    id='imageUpload'
-                  />
-                  <label htmlFor='imageUpload' className={styles.uploadButton}>
-                    <span>이미지 첨부</span>
-                  </label>
+        </div>
+
+        <div className={styles.imageContainer}>
+          <div className={styles.imageUploadArea}>
+            {images.length === 0 ? (
+              <div className={styles.noImage}>
+                <input
+                  type='file'
+                  accept='image/*'
+                  onChange={handleImageChange}
+                  className={styles.fileInput}
+                  id='imageUpload'
+                />
+                <label htmlFor='imageUpload' className={styles.uploadButton}>
+                  <span>이미지 첨부</span>
+                </label>
+              </div>
+            ) : (
+              <>
+                <div className={styles.imagePreview}>
+                  {images?.map((image, index) => (
+                    <div key={index} className={styles.previewItem}>
+                      <img src={image} alt={`preview-${index}`} />
+                      <button
+                        onClick={() =>
+                          setImages(images.filter((_, i) => i !== index))
+                        }
+                        className={styles.removeButton}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ) : (
-                <>
-                  <div className={styles.imagePreview}>
-                    {images?.map((image, index) => (
-                      <div key={index} className={styles.previewItem}>
-                        <img src={image} alt={`preview-${index}`} />
-                        <button
-                          onClick={() =>
-                            setImages(images.filter((_, i) => i !== index))
-                          }
-                          className={styles.removeButton}
-                        >
-                          ×
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                  <input
-                    type='file'
-                    accept='image/*'
-                    onChange={handleImageChange}
-                    className={styles.fileInput}
-                    id='imageUpload'
-                  />
-                  <label htmlFor='imageUpload' className={styles.addMoreButton}>
-                    <span>+</span>
-                  </label>
-                </>
-              )}
-            </div>
+                <input
+                  type='file'
+                  accept='image/*'
+                  onChange={handleImageChange}
+                  className={styles.fileInput}
+                  id='imageUpload'
+                />
+                <label htmlFor='imageUpload' className={styles.addMoreButton}>
+                  <span>+</span>
+                </label>
+              </>
+            )}
           </div>
-          <button type='submit'>작성하기</button>
+        </div>
+        <div className={styles.formFooter}>
+          <button type='submit' className={styles.submitButton}>
+            작성하기
+          </button>
         </div>
       </form>
     </div>
