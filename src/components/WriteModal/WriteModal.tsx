@@ -1,12 +1,24 @@
 import { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import styles from './WriteModal.module.scss';
 import usePostItem from '../../hooks/usePostItem';
 
+type FormData = {
+  title: string;
+  content: string;
+  price: number;
+  imageUrl?: string;
+};
+
 function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
   const [images, setImages] = useState<string[]>([]);
-  const [title, setTitle] = useState<string>('');
-  const [content, setContent] = useState<string>('');
-  const [price, setPrice] = useState<number>(0);
+  const { register, handleSubmit } = useForm<FormData>({
+    defaultValues: {
+      title: '',
+      content: '',
+      price: 0,
+    },
+  });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -19,23 +31,17 @@ function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
     }
   };
 
-  const { mutate } = usePostItem({
-    title,
-    content,
-    price,
-    imageUrl: images[0],
-  });
+  const { mutate } = usePostItem();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (title === '' || content === '') {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    if (data.title === '' || data.content === '') {
       alert('모든 필드를 입력해주세요.');
       return;
     }
-    mutate();
-    setTitle('');
-    setContent('');
-    setPrice(0);
+    mutate({
+      ...data,
+      imageUrl: images[0],
+    });
     setImages([]);
     setIsOpen(false);
   };
@@ -47,17 +53,16 @@ function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
     >
       <form
         className={styles.formContainer}
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.inputGroup}>
           <input
+            {...register('title')}
             type='text'
             id='title'
             className={styles.inputField}
             placeholder=' '
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
             required
           />
           <label htmlFor='title' className={styles.floatingLabel}>
@@ -68,9 +73,8 @@ function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
         <div className={styles.formContent}>
           <label htmlFor='content'>추가 설명</label>
           <textarea
+            {...register('content')}
             placeholder=''
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
             className={styles.inputField}
           />
         </div>
@@ -78,11 +82,10 @@ function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
         <div className={styles.formFooter}>
           <div className={styles.priceContainer}>
             <input
+              {...register('price', { valueAsNumber: true })}
               type='number'
               min={0}
               placeholder='가격'
-              value={price === 0 ? '' : price}
-              onChange={(e) => setPrice(Number(e.target.value))}
             />
             <span>원</span>
           </div>
@@ -93,6 +96,7 @@ function WriteModal({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
             {images.length === 0 ? (
               <div className={styles.noImage}>
                 <input
+                  {...register('imageUrl')}
                   type='file'
                   accept='image/*'
                   onChange={handleImageChange}
