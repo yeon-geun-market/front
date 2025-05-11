@@ -7,7 +7,7 @@ const ListItem = React.memo(function ListItem(itemData: ListItemData) {
     <div className={styles.listItemWrapper}>
       <Link to={`/items/${itemData.id}`}>
         <img src={itemData.imageUrl || ''} alt={itemData.title} />
-        <div className={styles.listIemInfo}>
+        <div className={styles.listItemInfo}>
           <p>{itemData.title}</p>
           <p>{itemData.price.toLocaleString()}원</p>
         </div>
