@@ -1,9 +1,8 @@
-import { memo } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ListItem.module.scss';
 import { ListItemData } from './dummyData';
-
-const ListItem = memo(function ListItem(itemData: ListItemData) {
+const ListItem = React.memo(function ListItem(itemData: ListItemData) {
   return (
     <div className={styles.listItemWrapper}>
       <Link to={`/items/${itemData.id}`}>
